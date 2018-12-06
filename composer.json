@@ -1,0 +1,41 @@
+{
+  "name": "sima-land/yii2-amqp",
+  "description": "Yii2 AMQP extension (wrapper on php-amqplib).",
+  "type": "yii2-extension",
+  "keywords": ["yii2","extension","rabbitmq","amqp","message queue"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Danil Syromolotov",
+      "email": "pelmennoteam@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.1",
+    "ext-json": "*",
+    "cebe/assetfree-yii2": "^2.0",
+    "php-amqplib/php-amqplib": "^2.8"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-master",
+    "phpunit/phpunit": "^7.4",
+    "php-coveralls/php-coveralls": "^1.0"
+  },
+  "suggest": {
+    "ext-pcntl": "*",
+    "ext-posix": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "simaland\\amqp\\": "./src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "simaland\\amqp\\tests\\": "./tests"
+    }
+  },
+  "extra": {
+    "bootstrap": "simaland\\amqp\\Component"
+  }
+}
