@@ -5,6 +5,9 @@ namespace simaland\amqp\tests\functional\components;
 use simaland\amqp\components\Exchange;
 use simaland\amqp\tests\TestCase;
 
+/**
+ * Tests exchange component
+ */
 class ExchangeTest extends TestCase
 {
     /**
