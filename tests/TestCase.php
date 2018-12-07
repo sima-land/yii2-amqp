@@ -25,7 +25,7 @@ class TestCase extends \PHPUnit\Framework\TestCase
             'class' => Component::class,
             'id' => 'testAmqp',
             'connection' => [
-                'host' => '127.0.0.1',
+                'dsn' => 'amqp://guest:guest@localhost:5672/',
             ],
             'queues' => [
                 [

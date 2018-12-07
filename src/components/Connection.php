@@ -195,21 +195,26 @@ class Connection extends ConfigurationObject
     }
 
     /**
-     * Renew AMQP connection
+     * Renew AMQP connection and returns connection state
+     *
+     * @return bool
      */
-    public function reconnect(): void
+    public function reconnect(): bool
     {
         if (!$this->amqpConnection->isConnected()) {
-            return;
+            return false;
         }
-
         $this->amqpConnection->reconnect();
+
+        return $this->amqpConnection->isConnected();
     }
 
     /**
-     * Close connection
+     * Close connection and returns connection state
+     *
+     * @return bool
      */
-    public function close(): void
+    public function close(): bool
     {
         if ($this->_channel instanceof AMQPChannel) {
             try {
@@ -225,6 +230,8 @@ class Connection extends ConfigurationObject
                 \Yii::error('Exception was thrown during AMQP connection closing: ' . $e->getMessage());
             }
         }
+
+        return $this->amqpConnection->isConnected();
     }
 
     /**
@@ -250,7 +257,10 @@ class Connection extends ConfigurationObject
                 $this->password = urldecode($dsn['pass']);
             }
             if (isset($dsn['path'])) {
-                $this->vHost = urldecode(ltrim($dsn['path'], '/'));
+                $this->vHost = urldecode($dsn['path']);
+                if ($this->vHost !== '/') {
+                    $this->vHost = ltrim($this->vHost, '/');
+                }
             }
             if (isset($dsn['query'])) {
                 $safeAssignedProperties = $this->dsnQuerySafeAssignedProperties();

@@ -39,7 +39,9 @@
     "bootstrap": "simaland\\amqp\\Component"
   },
   "scripts": {
-    "test": "vendor/bin/phpunit"
+    "test": "vendor/bin/phpunit",
+    "docker-start": "docker-compose up -d",
+    "docker-stop": "docker-compose stop"
   },
   "scripts-descriptions": {
     "test": "Run tests for this package"
