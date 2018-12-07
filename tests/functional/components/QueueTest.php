@@ -11,7 +11,7 @@ use simaland\amqp\tests\TestCase;
 class QueueTest extends TestCase
 {
     /**
-     * Tests queue declaration
+     * Tests queue basic operations
      */
     public function testDefault(): void
     {
