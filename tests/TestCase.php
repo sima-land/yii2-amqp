@@ -61,6 +61,9 @@ class TestCase extends \PHPUnit\Framework\TestCase
                 'callbacks' => [
                     'testQueue' => TestQueueCallback::class,
                 ],
+                'logger' => [
+                    'class' => _mock\TestLogger::class,
+                ],
             ],
         ]);
     }

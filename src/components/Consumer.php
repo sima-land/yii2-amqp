@@ -130,10 +130,12 @@ class Consumer extends AMQPObject
             if ($this->component->queues->filterByName($queueName)->length() === 0) {
                 throw new InvalidConfigException("Queue `{$queueName}` is not configured.");
             }
-            if (!is_string($callback)) {
-                throw new InvalidConfigException('Consumer `callback` parameter value should be a class name or service name in DI container.');
+            if (!(is_string($callback) || is_callable($callback))) {
+                throw new InvalidConfigException('Consumer `callback` parameter value should be a class name or service name in DI container or callable.');
             }
-            $callback = Instance::ensure($callback, CallbackInterface::class);
+            if (!is_callable($callback)) {
+                $callback = [Instance::ensure($callback, CallbackInterface::class), 'execute'];
+            }
             $this->callbacks[$queueName] = $callback;
         }
         if (!is_callable($this->deserializer)) {
