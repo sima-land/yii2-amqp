@@ -41,7 +41,8 @@
   "scripts": {
     "test": "vendor/bin/phpunit",
     "docker-start": "docker-compose up -d",
-    "docker-stop": "docker-compose stop"
+    "docker-stop": "docker-compose stop",
+    "docker-restart": "docker-compose stop && docker-compose up -d"
   },
   "scripts-descriptions": {
     "test": "Run tests for this package"
