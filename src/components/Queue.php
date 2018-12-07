@@ -79,9 +79,24 @@ class Queue extends AMQPObject
 
     /**
      * Purge queue
+     *
+     * @return mixed|null
      */
-    public function purge(): void
+    public function purge()
     {
-        $this->connection->channel->queue_purge($this->name, $this->noWait, $this->ticket);
+        return $this->connection->channel->queue_purge($this->name, $this->noWait, $this->ticket);
+    }
+
+    /**
+     * Delete queue
+     *
+     * @param bool $isUnused If queue is unused
+     * @param bool $isEmpty  If queue is empty
+     *
+     * @return mixed|null
+     */
+    public function delete($isUnused = true, $isEmpty = true)
+    {
+        return $this->connection->channel->queue_delete($this->name, $isUnused, $isEmpty, $this->noWait, $this->ticket);
     }
 }

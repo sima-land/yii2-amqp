@@ -14,7 +14,7 @@ class ConnectionTest extends TestCase
     /**
      * Tests AMQP connection
      */
-    public function testAMQPConnection(): void
+    public function testDefault(): void
     {
         $this->assertInstanceOf(
             AMQPStreamConnection::class,
