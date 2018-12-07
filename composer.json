@@ -22,8 +22,8 @@
     "php-coveralls/php-coveralls": "^1.0"
   },
   "suggest": {
-    "ext-pcntl": "*",
-    "ext-posix": "*"
+    "ext-pcntl": "Use pcntl extension",
+    "ext-posix": "Use posix extension"
   },
   "autoload": {
     "psr-4": {
@@ -37,5 +37,11 @@
   },
   "extra": {
     "bootstrap": "simaland\\amqp\\Component"
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit"
+  },
+  "scripts-descriptions": {
+    "test": "Run tests for this package"
   }
 }

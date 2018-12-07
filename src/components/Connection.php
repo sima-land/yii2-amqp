@@ -2,19 +2,31 @@
 
 namespace simaland\amqp\components;
 
+use Exception;
+use InvalidArgumentException;
+use ReflectionException;
+use ReflectionClass;
+use yii\helpers\Inflector;
 use PhpAmqpLib\Channel\AMQPChannel;
-use simaland\amqp\exceptions\InvalidConfigException;
 use PhpAmqpLib\Connection\AbstractConnection;
 use PhpAmqpLib\Connection\AMQPLazyConnection;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
-use ReflectionClass;
-use yii\helpers\Inflector;
+use simaland\amqp\exceptions\InvalidConfigException;
+use function stream_context_create;
+use function is_subclass_of;
+use function parse_url;
+use function urldecode;
+use function ltrim;
+use function parse_str;
+use function in_array;
+use function strpos;
+use function is_array;
 
 /**
  * Connection configuration
  *
- * @property-read AMQPChannel          $channel
- * @property-read AMQPStreamConnection $amqpConnection
+ * @property-read AMQPChannel          $channel        AMQP channel
+ * @property-read AMQPStreamConnection $amqpConnection AMQP connection
  */
 class Connection extends ConfigurationObject
 {
@@ -125,16 +137,13 @@ class Connection extends ConfigurationObject
     {
         parent::init();
         $this->parseDsn();
-        if (\is_array($this->streamContext)) {
-            $this->streamContext = \stream_context_create($this->streamContext);
+        if (is_array($this->streamContext)) {
+            $this->streamContext = stream_context_create($this->streamContext);
         }
         if (empty($this->dsn) && empty($this->host)) {
             throw new InvalidConfigException('Either `dsn` or `host` options required for configuring connection.');
         }
-        if (!empty($this->dsn) && !empty($this->host)) {
-            throw new InvalidConfigException('Connection options `dsn` and `host` should not be both specified, configuration is ambiguous.');
-        }
-        if (empty($this->type) || !\is_subclass_of($this->type, AbstractConnection::class)) {
+        if (empty($this->type) || !is_subclass_of($this->type, AbstractConnection::class)) {
             throw new InvalidConfigException('Connection type should be a subclass of ' . AbstractConnection::class . '.');
         }
     }
@@ -205,14 +214,14 @@ class Connection extends ConfigurationObject
         if ($this->_channel instanceof AMQPChannel) {
             try {
                 $this->_channel->close();
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 \Yii::error('Exception was thrown during AMQP channel closing: ' . $e->getMessage());
             }
         }
         if ($this->amqpConnection->isConnected()) {
             try {
                 $this->amqpConnection->close();
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 \Yii::error('Exception was thrown during AMQP connection closing: ' . $e->getMessage());
             }
         }
@@ -224,33 +233,33 @@ class Connection extends ConfigurationObject
     protected function parseDsn(): void
     {
         if ($this->dsn) {
-            $dsn = \parse_url($this->dsn);
+            $dsn = parse_url($this->dsn);
             if ($dsn === false || !isset($dsn['scheme']) || $dsn['scheme'] !== static::DSN_SCHEME_AMQP) {
-                throw new \InvalidArgumentException('Malformed parameter "dsn".');
+                throw new InvalidArgumentException('Malformed parameter "dsn".');
             }
             if (isset($dsn['host'])) {
-                $this->host = \urldecode($dsn['host']);
+                $this->host = urldecode($dsn['host']);
             }
             if (isset($dsn['port'])) {
                 $this->port = (int)$dsn['port'];
             }
             if (isset($dsn['user'])) {
-                $this->user = \urldecode($dsn['user']);
+                $this->user = urldecode($dsn['user']);
             }
             if (isset($dsn['pass'])) {
-                $this->password = \urldecode($dsn['pass']);
+                $this->password = urldecode($dsn['pass']);
             }
             if (isset($dsn['path'])) {
-                $this->vHost = \urldecode(\ltrim($dsn['path'], '/'));
+                $this->vHost = urldecode(ltrim($dsn['path'], '/'));
             }
             if (isset($dsn['query'])) {
                 $safeAssignedProperties = $this->dsnQuerySafeAssignedProperties();
                 if (!empty($safeAssignedProperties)) {
                     $query = [];
-                    \parse_str($dsn['query'], $query);
+                    parse_str($dsn['query'], $query);
                     foreach ($query as $property => $value) {
                         $propertyName = Inflector::variablize($property);
-                        if (\in_array($propertyName, $safeAssignedProperties, true)) {
+                        if (in_array($propertyName, $safeAssignedProperties, true)) {
                             $this->{$propertyName} = $value;
                         }
                     }
@@ -271,11 +280,11 @@ class Connection extends ConfigurationObject
             $reflection = new ReflectionClass($this);
             $reflectionProperties = $reflection->getProperties();
             foreach ($reflectionProperties as $reflectionProperty) {
-                if (\strpos($reflectionProperty->getDocComment(), '@query-assign-protect') === false) {
+                if (strpos($reflectionProperty->getDocComment(), '@query-assign-protect') === false) {
                     $properties[] = $reflectionProperty->getName();
                 }
             }
-        } catch (\ReflectionException $e) {
+        } catch (ReflectionException $e) {
         }
 
         return $properties;

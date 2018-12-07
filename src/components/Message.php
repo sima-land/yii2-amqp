@@ -7,6 +7,9 @@ use PhpAmqpLib\Wire\AMQPTable;
 use simaland\amqp\Component;
 use simaland\amqp\exceptions\InvalidConfigException;
 use yii\helpers\ArrayHelper;
+use function is_string;
+use function call_user_func;
+use function is_callable;
 
 /**
  * Message object
@@ -73,7 +76,7 @@ class Message extends ConfigurationObject
     public function init(): void
     {
         parent::init();
-        if (!\is_callable($this->serializer)) {
+        if (!is_callable($this->serializer)) {
             throw new InvalidConfigException('Producer `serializer` option should be a callable.');
         }
     }
@@ -89,8 +92,8 @@ class Message extends ConfigurationObject
         if (!$this->_amqpMessage || $renew) {
             $messageBody = $this->_body;
             $headers = $this->headers;
-            if (!\is_string($messageBody)) {
-                $messageBody = \call_user_func($this->serializer, $messageBody);
+            if (!is_string($messageBody)) {
+                $messageBody = call_user_func($this->serializer, $messageBody);
                 $headers[static::HEADER_NAME_SERIALIZED] = true;
             }
             $this->_amqpMessage = new AMQPMessage($messageBody, ArrayHelper::merge(

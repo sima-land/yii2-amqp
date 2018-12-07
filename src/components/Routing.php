@@ -5,6 +5,7 @@ namespace simaland\amqp\components;
 use simaland\amqp\exceptions\InvalidConfigException;
 use simaland\amqp\exceptions\RuntimeException;
 use function in_array;
+use function is_array;
 
 /**
  * Binding between exchange and queue
@@ -50,7 +51,7 @@ class Routing extends AMQPObject
         if (empty($this->sourceExchange)) {
             throw new InvalidConfigException('Exchange name is required for binding.');
         }
-        if (!\is_array($this->routingKeys)) {
+        if (!is_array($this->routingKeys)) {
             throw new InvalidConfigException('Option `routing_keys` should be an array.');
         }
         if (
@@ -133,7 +134,7 @@ class Routing extends AMQPObject
     }
 
     /**
-     * Makes binding between exchange and target (toExchange or queue).
+     * Makes binding between sourceExchange and target (targetExchange or targetQueue).
      *
      * @param string $type   Binding to type (exchange or queue)
      * @param string $target Binding target (queue name or exchange name)

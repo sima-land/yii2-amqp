@@ -3,11 +3,13 @@
 namespace simaland\amqp\components;
 
 use simaland\amqp\exceptions\InvalidConfigException;
+use function in_array;
+use function implode;
 
 /**
  * Exchange object
  *
- * @property-read array $allowedTypes
+ * @property-read array $allowedTypes List of allowed exchange types
  */
 class Exchange extends AMQPObject
 {
@@ -63,8 +65,8 @@ class Exchange extends AMQPObject
         if (empty($this->type)) {
             throw new InvalidConfigException('Exchange type should be specified.');
         }
-        if (!\in_array($this->type, $this->allowedTypes, true)) {
-            $exchangeTypes = \implode(', ', $this->allowedTypes);
+        if (!in_array($this->type, $this->allowedTypes, true)) {
+            $exchangeTypes = implode(', ', $this->allowedTypes);
             throw new InvalidConfigException("Unknown exchange type `{$this->type}`. Allowed values are: {$exchangeTypes}.");
         }
         parent::init();

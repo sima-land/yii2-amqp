@@ -4,6 +4,8 @@ namespace simaland\amqp\tests\unit\components;
 
 use PhpAmqpLib\Message\AMQPMessage;
 use PhpAmqpLib\Wire\AMQPTable;
+use simaland\amqp\components\Message;
+use simaland\amqp\exceptions\InvalidConfigException;
 use simaland\amqp\tests\TestCase;
 
 /**
@@ -11,6 +13,17 @@ use simaland\amqp\tests\TestCase;
  */
 class MessageTest extends TestCase
 {
+    /**
+     * Tests message init with exception
+     */
+    public function testInitWithException(): void
+    {
+        $this->expectException(InvalidConfigException::class);
+        new Message('Test', static::$component, [
+            'serializer' => 'unknown_callback_function',
+        ]);
+    }
+
     /**
      * Tests amqp message.
      *

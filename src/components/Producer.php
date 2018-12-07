@@ -8,6 +8,7 @@ use simaland\amqp\exceptions\RuntimeException;
 use simaland\amqp\logger\ApplicationLogger;
 use simaland\amqp\logger\LoggerInterface;
 use yii\di\Instance;
+use function is_bool;
 
 /**
  * Service that sends AMQP Messages
@@ -33,7 +34,7 @@ class Producer extends AMQPObject
      */
     public function init(): void
     {
-        if (!\is_bool($this->safe)) {
+        if (!is_bool($this->safe)) {
             throw new InvalidConfigException('Producer option `safe` should be of type boolean.');
         }
         $this->logger = Instance::ensure($this->logger, LoggerInterface::class);
