@@ -27,6 +27,11 @@ class TestCase extends \PHPUnit\Framework\TestCase
             'connection' => [
                 'dsn' => 'amqp://guest:guest@localhost:5672/',
             ],
+            'producer' => [
+                'logger' => [
+                    'class' => _mock\TestLogger::class,
+                ],
+            ],
             'queues' => [
                 [
                     'name' => 'testQueue',
