@@ -18,9 +18,9 @@ before_install:
 install:
   - travis_retry composer self-update
   - travis_retry composer install --prefer-dist --no-interaction
+  - travis_retry docker-compose pull
 
 before_script:
-  - docker-compose pull
   - travis_wait 5 docker-compose up -d
 
 script:
