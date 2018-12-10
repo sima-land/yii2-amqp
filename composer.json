@@ -35,9 +35,6 @@
       "simaland\\amqp\\tests\\": "./tests"
     }
   },
-  "extra": {
-    "bootstrap": "simaland\\amqp\\Component"
-  },
   "scripts": {
     "test": "vendor/bin/phpunit",
     "docker-start": "docker-compose up -d",

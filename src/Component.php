@@ -2,7 +2,6 @@
 
 namespace simaland\amqp;
 
-use yii\base\BootstrapInterface;
 use yii\base\Component as BaseComponent;
 use yii\di\Instance;
 use Yii;
@@ -17,7 +16,7 @@ use function array_walk;
 use function md5;
 
 /**
- * Yii2 AMQP component.
+ * Yii2 AMQP component
  *
  * @property-read components\Producer                        $producer   Producer component
  * @property-read components\Connection                      $connection Connection component
@@ -26,7 +25,7 @@ use function md5;
  * @property-read collections\Exchange|components\Exchange[] $exchanges  Exchanges collection
  * @property-read collections\Routing|components\Routing[]   $routing    Routing collection
  */
-class Component extends BaseComponent implements BootstrapInterface
+class Component extends BaseComponent
 {
     /**
      * Singleton alias name template
@@ -56,9 +55,9 @@ class Component extends BaseComponent implements BootstrapInterface
     public $id;
 
     /**
-     * @var bool
+     * @var bool Sub-components auto-declaration
      */
-    public $autoDeclare = true;
+    public $autoDeclare = false;
 
     /**
      * @var components\Message|array Message template
@@ -68,21 +67,21 @@ class Component extends BaseComponent implements BootstrapInterface
     ];
 
     /**
-     * @var components\Connection
+     * @var components\Connection|array
      */
     protected $_connection = [
         'class' => components\Connection::class,
     ];
 
     /**
-     * @var components\Producer
+     * @var components\Producer|array
      */
     protected $_producer = [
         'class' => components\Producer::class,
     ];
 
     /**
-     * @var components\Consumer
+     * @var components\Consumer|array
      */
     protected $_consumer = [
         'class' => components\Consumer::class,
@@ -121,16 +120,9 @@ class Component extends BaseComponent implements BootstrapInterface
 
     /**
      * @inheritdoc
-     */
-    public function bootstrap($app): void
-    {
-    }
-
-    /**
-     * @inheritdoc
      * @throws exceptions\InvalidConfigException
      */
-    public function init()
+    public function init(): void
     {
         parent::init();
         if ($this->id === null) {
@@ -294,7 +286,7 @@ class Component extends BaseComponent implements BootstrapInterface
     /**
      * Register AMQP connection
      */
-    protected function registerConnection()
+    protected function registerConnection(): void
     {
         Yii::$container->setSingleton(
             $this->getServiceName('connection'),
@@ -306,11 +298,13 @@ class Component extends BaseComponent implements BootstrapInterface
     /**
      * Register producer
      */
-    protected function registerProducer()
+    protected function registerProducer(): void
     {
         Yii::$container->setSingleton(
             $this->getServiceName('producer'),
-            $this->_producer,
+            array_merge([
+                'autoDeclare' => $this->autoDeclare,
+            ], $this->_producer),
             [Instance::of($this->getServiceName('connection')), $this]
         );
     }
@@ -318,11 +312,13 @@ class Component extends BaseComponent implements BootstrapInterface
     /**
      * Register consumer
      */
-    protected function registerConsumer()
+    protected function registerConsumer(): void
     {
         Yii::$container->setSingleton(
             $this->getServiceName('consumer'),
-            $this->_consumer,
+            array_merge([
+                'autoDeclare' => $this->autoDeclare,
+            ], $this->_consumer),
             [Instance::of($this->getServiceName('connection')), $this]
         );
     }
@@ -330,7 +326,7 @@ class Component extends BaseComponent implements BootstrapInterface
     /**
      * Register message definition
      */
-    protected function registerMessageDefinition()
+    protected function registerMessageDefinition(): void
     {
         Yii::$container->set(
             $this->getServiceName('message'),
@@ -427,7 +423,13 @@ class Component extends BaseComponent implements BootstrapInterface
                     unset($propertyConfiguration['_items']);
                     array_walk($collectionItems, function (&$item) use ($property) {
                         if (is_array($item)) {
-                            $item = Yii::createObject(array_merge(static::DEFAULTS[$property], $item), [
+                            $item = Yii::createObject(array_merge(
+                                static::DEFAULTS[$property],
+                                [
+                                    'autoDeclare' => $this->autoDeclare,
+                                ],
+                                $item
+                            ), [
                                 Instance::of($this->getServiceName('connection')),
                                 $this,
                             ]);
