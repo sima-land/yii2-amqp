@@ -12,29 +12,31 @@ Example configuration:
 ```php
 return [
     'components' => [
-        'amqp' => \simaland\amqp\Component::class,
-        'connection' => [
-            'dsn' => 'amqp://user:password@host:port/vHost?<param>=<value>'
-        ],
-        'queues' => [
-            [
-                'name' => 'queueName',
+        'amqp' => [
+            'class' => \simaland\amqp\Component::class,
+            'connection' => [
+                'dsn' => 'amqp://user:password@host:port/vHost?<param>=<value>'
             ],
-        ],
-        'exchanges' => [
-            [
-                'name' => 'exchangeName',
+            'queues' => [
+                [
+                    'name' => 'queueName',
+                ],
             ],
-        ],
-        'routing' => [
-            [
-                'sourceExchange' => 'exchangeName',
-                'targetQueue' => 'queueName',
+            'exchanges' => [
+                [
+                    'name' => 'exchangeName',
+                ],
             ],
-        ],
-        'consumer' => [
-            'callbacks' => [
-                'queueName' => <implement of \simaland\amqp\components\consumer\CallbackInterface::class>,
+            'routing' => [
+                [
+                    'sourceExchange' => 'exchangeName',
+                    'targetQueue' => 'queueName',
+                ],
+            ],
+            'consumer' => [
+                'callbacks' => [
+                    'queueName' => <implement of \simaland\amqp\components\consumer\CallbackInterface::class>,
+                ],
             ],
         ],
     ],
