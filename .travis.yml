@@ -20,10 +20,11 @@ install:
   - travis_retry composer install --prefer-dist --no-interaction
 
 before_script:
-  - travis_wait composer docker-start
+  - docker-compose pull
+  - travis_wait 5 docker-compose up -d
 
 script:
   - composer test -- --coverage-text --coverage-clover=coverage.clover --verbose $PHPUNIT_FLAGS
 
 after_script:
-  - travis_wait composer docker-stop
+  - travis_wait 5 docker-compose stop
