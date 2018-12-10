@@ -146,6 +146,20 @@ class Consumer extends AMQPObject
     }
 
     /**
+     * @inheritdoc
+     */
+    public function declare(): bool
+    {
+        if (!$this->_isDeclared && parent::declare()) {
+            $this->component->routing->each(function (Routing $routing) {
+                $this->_isDeclared = $this->_isDeclared && $routing->declare();
+            });
+        }
+
+        return $this->_isDeclared;
+    }
+
+    /**
      * Returns consumed value
      */
     public function getConsumed(): int
@@ -171,6 +185,9 @@ class Consumer extends AMQPObject
      */
     public function consume(int $messagesLimit = 0): int
     {
+        if (!$this->isDeclared()) {
+            throw new RuntimeException('One of defined routes wasn\'t successfully declared.');
+        }
         $this->applyQosOptions();
         $this->_messagesLimit = $messagesLimit;
         $this->startConsuming();
