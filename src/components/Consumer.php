@@ -389,7 +389,7 @@ class Consumer extends AMQPObject
         $channel = $message->delivery_info['channel'];
 
         // respond to the broker with appropriate reply code
-        if ($processFlag === CallbackInterface::MESSAGE_REQUEUE || !$processFlag) {
+        if ($processFlag === CallbackInterface::MESSAGE_REQUEUE || false === $processFlag) {
             // Reject and requeue message to AMQP
             $channel->basic_reject($message->delivery_info['delivery_tag'], true);
         } elseif ($processFlag === CallbackInterface::MESSAGE_REJECT) {
