@@ -48,3 +48,23 @@ You must tests your changes by running this command:
 ```shell
 composer test
 ```
+
+
+#### Example
+```php
+class AmpqController {
+
+    public function actionSend()
+    {
+        $msg = \Yii::$app->amqp->createMessage('Test');
+        $exchange = \Yii::$app->amqp->exchanges->current();
+        $exchange->declare();
+        \Yii::$app->amqp->producer->publish($msg, $exchange);
+    }
+
+    public function actionListen()
+    {
+        \Yii::$app->amqp->consumer->declare();
+        \Yii::$app->amqp->consumer->consume();
+    }
+```
