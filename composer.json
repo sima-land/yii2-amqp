@@ -18,8 +18,8 @@
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
-    "phpunit/phpunit": "^7.4",
-    "php-coveralls/php-coveralls": "^1.0"
+    "phpunit/phpunit": "^7.5",
+    "php-coveralls/php-coveralls": "^2.1"
   },
   "suggest": {
     "ext-pcntl": "Use pcntl extension",
@@ -35,14 +35,8 @@
       "simaland\\amqp\\tests\\": "./tests"
     }
   },
-  "extra": {
-    "bootstrap": "simaland\\amqp\\Component"
-  },
   "scripts": {
-    "test": "vendor/bin/phpunit",
-    "docker-start": "docker-compose up -d",
-    "docker-stop": "docker-compose stop",
-    "docker-restart": "docker-compose stop && docker-compose up -d"
+    "test": "vendor/bin/phpunit"
   },
   "scripts-descriptions": {
     "test": "Run tests for this package"

@@ -24,6 +24,7 @@ class TestCase extends \PHPUnit\Framework\TestCase
         self::$component = \Yii::createObject([
             'class' => Component::class,
             'id' => 'testAmqp',
+            'autoDeclare' => false,
             'connection' => [
                 'dsn' => 'amqp://guest:guest@localhost:5672/',
             ],

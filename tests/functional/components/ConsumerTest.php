@@ -4,6 +4,7 @@ namespace simaland\amqp\tests\functional\components;
 
 use PhpAmqpLib\Message\AMQPMessage;
 use simaland\amqp\components\Consumer;
+use simaland\amqp\components\consumer\CallbackInterface;
 use simaland\amqp\components\Exchange;
 use simaland\amqp\components\Message;
 use simaland\amqp\components\Producer;
@@ -48,6 +49,8 @@ class ConsumerTest extends TestCase
         $producer->publish($message, $exchange);
         $consumer->callbacks['testQueue'] = function (AMQPMessage $message) {
             $this->assertEquals('Test', $message->getBody());
+
+            return CallbackInterface::MESSAGE_ACK;
         };
         $this->assertEmpty($logger->successArray);
         $consumer->consume(1);
