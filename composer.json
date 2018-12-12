@@ -1,5 +1,5 @@
 {
-  "name": "land/yii2-amqp",
+  "name": "sima-land/yii2-amqp",
   "description": "Yii2 AMQP extension (wrapper on php-amqplib).",
   "type": "yii2-extension",
   "keywords": ["yii2","extension","rabbitmq","amqp","message queue"],
