@@ -13,12 +13,12 @@
   "require": {
     "php": ">=7.1",
     "ext-json": "*",
-    "php-amqplib/php-amqplib": "^2.8"
+    "php-amqplib/php-amqplib": "^2.8",
+    "yiisoft/yii2": "^2.0.15"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
     "phpunit/phpunit": "^7.5",
-    "yiisoft/yii2": "^2.0",
     "php-coveralls/php-coveralls": "^2.1"
   },
   "suggest": {
