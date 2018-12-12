@@ -13,7 +13,7 @@
   "require": {
     "php": ">=7.1",
     "ext-json": "*",
-    "cebe/assetfree-yii2": "^2.0",
+    "yiisoft/yii2": "^2.0",
     "php-amqplib/php-amqplib": "^2.8"
   },
   "require-dev": {
@@ -40,5 +40,11 @@
   },
   "scripts-descriptions": {
     "test": "Run tests for this package"
-  }
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ]
 }
