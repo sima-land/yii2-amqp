@@ -21,6 +21,12 @@
     "phpunit/phpunit": "^7.5",
     "php-coveralls/php-coveralls": "^2.1"
   },
+  "provide": {
+    "bower-asset/jquery": "*",
+    "bower-asset/jquery.inputmask": "*",
+    "bower-asset/punycode": "*",
+    "bower-asset/yii2-pjax": "*"
+  },
   "suggest": {
     "ext-pcntl": "Use pcntl extension",
     "ext-posix": "Use posix extension"
