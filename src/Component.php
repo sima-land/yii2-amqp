@@ -133,9 +133,6 @@ class Component extends BaseComponent
         $this->registerConsumer();
         $this->registerMessageDefinition();
         $this->registerCollections();
-        register_shutdown_function(function () {
-            $this->connection->close();
-        });
     }
 
     /**

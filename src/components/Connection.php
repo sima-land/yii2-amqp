@@ -146,6 +146,17 @@ class Connection extends ConfigurationObject
         if (empty($this->type) || !is_subclass_of($this->type, AbstractConnection::class)) {
             throw new InvalidConfigException('Connection type should be a subclass of ' . AbstractConnection::class . '.');
         }
+        register_shutdown_function(function () {
+            $this->close();
+        });
+    }
+
+    /**
+     * Destructor
+     */
+    public function __destruct()
+    {
+        $this->close();
     }
 
     /**
