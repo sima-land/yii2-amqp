@@ -36,7 +36,7 @@
     }
   },
   "scripts": {
-    "test": "vendor/bin/phpunit"
+    "test": "vendor/bin/phpunit --testdox --coverage-text --verbose"
   },
   "scripts-descriptions": {
     "test": "Run tests for this package"

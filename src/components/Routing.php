@@ -49,16 +49,16 @@ class Routing extends AMQPObject
     public function init(): void
     {
         if (empty($this->sourceExchange)) {
-            throw new InvalidConfigException('Exchange name is required for binding.');
+            throw new InvalidConfigException('`sourceExchange` is required for binding.');
         }
         if (!is_array($this->routingKeys)) {
-            throw new InvalidConfigException('Option `routing_keys` should be an array.');
+            throw new InvalidConfigException('Option `routingKeys` should be an array.');
         }
         if (
             (empty($this->targetQueue) && empty($this->targetExchange))
             || (!empty($this->targetQueue) && !empty($this->targetExchange))
         ) {
-            throw new InvalidConfigException('Either `queue` or `to_exchange` options should be specified to create binding.');
+            throw new InvalidConfigException('Either `targetQueue` or `targetExchange` options should be specified to create binding.');
         }
         if ($this->component->exchanges->filterByName($this->sourceExchange)->length() === 0) {
             throw new InvalidConfigException("Exchange `{$this->sourceExchange}` is not configured.");
@@ -80,19 +80,19 @@ class Routing extends AMQPObject
      */
     public function declare(): bool
     {
-        if (!$this->_isDeclared && parent::declare()) {
-            $this->_isDeclared = $this->declareExchange($this->sourceExchange);
-            if ($this->_isDeclared) {
-                if (!empty($this->targetQueue)) {
-                    $this->_isDeclared = $this->declareQueue();
-                    $this->bindExchangeTo(static::BIND_TARGET_QUEUE, $this->targetQueue);
-                } elseif (!empty($this->targetExchange)) {
-                    $this->_isDeclared = $this->declareExchange($this->targetExchange);
-                    $this->bindExchangeTo(static::BIND_TARGET_EXCHANGE, $this->targetExchange);
-                } else {
-                    $this->_isDeclared = false;
-                }
+        if (
+            !$this->_isDeclared
+            && parent::declare()
+            && $isDeclared = $this->declareExchange($this->sourceExchange)
+        ) {
+            if (!empty($this->targetQueue) && $isDeclared = $this->declareQueue()) {
+                $this->bindExchangeTo(static::BIND_TARGET_QUEUE, $this->targetQueue);
+            } elseif (!empty($this->targetExchange) && $isDeclared = $this->declareExchange($this->targetExchange)) {
+                $this->bindExchangeTo(static::BIND_TARGET_EXCHANGE, $this->targetExchange);
+            } else {
+                $isDeclared = false;
             }
+            $this->_isDeclared = $isDeclared;
         }
 
         return $this->_isDeclared;
