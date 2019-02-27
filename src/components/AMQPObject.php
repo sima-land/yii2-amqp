@@ -11,9 +11,24 @@ use PhpAmqpLib\Channel\AMQPChannel;
 abstract class AMQPObject extends ConfigurationObject
 {
     /**
-     * @var bool Is needed object auto-declaration
+     * Disable component declaration.
      */
-    public $autoDeclare = false;
+    public const DECLARATION_DISABLE = 0;
+
+    /**
+     * Enable component declaration.
+     */
+    public const DECLARATION_ENABLE = 1;
+
+    /**
+     * Component auto declaration.
+     */
+    public const DECLARATION_AUTO = 2;
+
+    /**
+     * @var int Declaration mode
+     */
+    public $declaration = self::DECLARATION_ENABLE;
 
     /**
      * @var Connection Connection component property
@@ -41,7 +56,10 @@ abstract class AMQPObject extends ConfigurationObject
     public function init(): void
     {
         parent::init();
-        if ($this->autoDeclare && $this->connection->amqpConnection->connectOnConstruct()) {
+        if (
+            $this->declaration >= static::DECLARATION_AUTO
+            && $this->connection->amqpConnection->connectOnConstruct()
+        ) {
             $this->declare();
         }
     }
@@ -53,6 +71,7 @@ abstract class AMQPObject extends ConfigurationObject
      */
     public function declare(): bool
     {
+        $this->_isDeclared = $this->declaration === static::DECLARATION_DISABLE;
         if (!$this->_isDeclared) {
             $this->_isDeclared = $this->connection->channel instanceof AMQPChannel;
         }

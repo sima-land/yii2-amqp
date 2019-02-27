@@ -5,7 +5,6 @@ namespace simaland\amqp;
 use yii\base\Component as BaseComponent;
 use yii\di\Instance;
 use Yii;
-use function register_shutdown_function;
 use function sprintf;
 use function is_array;
 use function array_merge;
@@ -55,9 +54,9 @@ class Component extends BaseComponent
     public $id;
 
     /**
-     * @var bool Sub-components auto-declaration
+     * @var int Sub-components declaration mode
      */
-    public $autoDeclare = false;
+    public $declaration = components\AMQPObject::DECLARATION_ENABLE;
 
     /**
      * @var components\Message|array Message template
@@ -300,7 +299,7 @@ class Component extends BaseComponent
         Yii::$container->setSingleton(
             $this->getServiceName('producer'),
             array_merge([
-                'autoDeclare' => $this->autoDeclare,
+                'declaration' => $this->declaration,
             ], $this->_producer),
             [Instance::of($this->getServiceName('connection')), $this]
         );
@@ -314,7 +313,7 @@ class Component extends BaseComponent
         Yii::$container->setSingleton(
             $this->getServiceName('consumer'),
             array_merge([
-                'autoDeclare' => $this->autoDeclare,
+                'declaration' => $this->declaration,
             ], $this->_consumer),
             [Instance::of($this->getServiceName('connection')), $this]
         );
@@ -423,7 +422,7 @@ class Component extends BaseComponent
                             $item = Yii::createObject(array_merge(
                                 static::DEFAULTS[$property],
                                 [
-                                    'autoDeclare' => $this->autoDeclare,
+                                    'declaration' => $this->declaration,
                                 ],
                                 $item
                             ), [
