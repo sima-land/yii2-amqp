@@ -34,4 +34,18 @@ class ExchangeTest extends TestCase
         ]);
         $this->assertEquals('direct', $exchange->type);
     }
+
+    /**
+     * Tests declaration disabling
+     */
+    public function testDeclarationDisabled(): void
+    {
+        $exchange = new Exchange(static::$component->connection, static::$component, [
+            'name' => 'textExchange',
+            'type' => 'direct',
+            'declaration' => Exchange::DECLARATION_DISABLE,
+        ]);
+        $this->assertTrue($exchange->isDeclarationDisabled());
+        $this->assertTrue($exchange->declare());
+    }
 }
