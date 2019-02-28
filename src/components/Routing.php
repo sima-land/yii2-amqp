@@ -83,6 +83,7 @@ class Routing extends AMQPObject
         if (
             !$this->_isDeclared
             && parent::declare()
+            && !$this->isDeclarationDisabled()
             && $isDeclared = $this->declareExchange($this->sourceExchange)
         ) {
             if (!empty($this->targetQueue) && $isDeclared = $this->declareQueue()) {
