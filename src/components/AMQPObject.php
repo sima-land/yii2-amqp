@@ -57,7 +57,7 @@ abstract class AMQPObject extends ConfigurationObject
     {
         parent::init();
         if (
-            $this->declaration >= static::DECLARATION_AUTO
+            $this->declaration === static::DECLARATION_AUTO
             && $this->connection->amqpConnection->connectOnConstruct()
         ) {
             $this->declare();
@@ -71,12 +71,21 @@ abstract class AMQPObject extends ConfigurationObject
      */
     public function declare(): bool
     {
-        $this->_isDeclared = $this->declaration === static::DECLARATION_DISABLE;
         if (!$this->_isDeclared) {
             $this->_isDeclared = $this->connection->channel instanceof AMQPChannel;
         }
 
         return $this->_isDeclared;
+    }
+
+    /**
+     * Checks whether AMQP component declaration is disabled
+     *
+     * @return bool
+     */
+    public function isDeclarationDisabled(): bool
+    {
+        return $this->declaration === static::DECLARATION_DISABLE;
     }
 
     /**

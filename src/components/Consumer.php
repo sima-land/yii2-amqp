@@ -150,7 +150,11 @@ class Consumer extends AMQPObject
      */
     public function declare(): bool
     {
-        if (!$this->_isDeclared && parent::declare()) {
+        if (
+            !$this->_isDeclared
+            && parent::declare()
+            && !$this->isDeclarationDisabled()
+        ) {
             $this->component->routing->each(function (Routing $routing) {
                 $this->_isDeclared = $this->_isDeclared && $routing->declare();
             });

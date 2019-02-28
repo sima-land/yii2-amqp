@@ -61,7 +61,11 @@ class Queue extends AMQPObject
      */
     public function declare(): bool
     {
-        if (!$this->_isDeclared && parent::declare()) {
+        if (
+            !$this->_isDeclared
+            && parent::declare()
+            && !$this->isDeclarationDisabled()
+        ) {
             $this->connection->channel->queue_declare(
                 $this->name,
                 $this->passive,

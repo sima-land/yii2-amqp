@@ -92,7 +92,11 @@ class Exchange extends AMQPObject
      */
     public function declare(): bool
     {
-        if (!$this->_isDeclared && parent::declare()) {
+        if (
+            !$this->_isDeclared
+            && parent::declare()
+            && !$this->isDeclarationDisabled()
+        ) {
             $this->connection->channel->exchange_declare(
                 $this->name,
                 $this->type,
