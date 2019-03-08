@@ -1,5 +1,5 @@
 {
-  "name": "land/yii2-amqp",
+  "name": "sima-land/yii2-amqp",
   "description": "Yii2 AMQP extension (wrapper on php-amqplib).",
   "type": "yii2-extension",
   "keywords": ["yii2","extension","rabbitmq","amqp","message queue"],
@@ -13,7 +13,7 @@
   "require": {
     "php": ">=7.1",
     "ext-json": "*",
-    "php-amqplib/php-amqplib": "^2.8",
+    "php-amqplib/php-amqplib": "v2.8.2-rc3",
     "yiisoft/yii2": "^2.0.15"
   },
   "require-dev": {
