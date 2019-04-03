@@ -1,6 +1,6 @@
 <?php
 
-namespace simaland\amqp\exceptions;
+namespace Simaland\Amqp\Exceptions;
 
 /**
  * @inheritdoc

@@ -1,11 +1,11 @@
 <?php
 
-namespace simaland\amqp\tests\unit\components;
+namespace Simaland\Amqp\Tests\unit\components;
 
-use simaland\amqp\components\Consumer;
-use simaland\amqp\exceptions\InvalidConfigException;
-use simaland\amqp\tests\_mock\TestQueueCallback;
-use simaland\amqp\tests\TestCase;
+use Simaland\Amqp\components\Consumer;
+use Simaland\Amqp\exceptions\InvalidConfigException;
+use Simaland\Amqp\Tests\_mock\TestQueueCallback;
+use Simaland\Amqp\Tests\TestCase;
 
 /**
  * Tests consumer component

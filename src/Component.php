@@ -1,8 +1,9 @@
 <?php
 
-namespace simaland\amqp;
+namespace Simaland\Amqp;
 
 use yii\base\Component as BaseComponent;
+use yii\base\InvalidConfigException;
 use yii\di\Instance;
 use Yii;
 use function sprintf;
@@ -17,12 +18,12 @@ use function md5;
 /**
  * Yii2 AMQP component
  *
- * @property-read components\Producer                        $producer   Producer component
- * @property-read components\Connection                      $connection Connection component
- * @property-read components\Consumer                        $consumer   Consumer component
- * @property-read collections\Queue|components\Queue[]       $queues     Queues collection
- * @property-read collections\Exchange|components\Exchange[] $exchanges  Exchanges collection
- * @property-read collections\Routing|components\Routing[]   $routing    Routing collection
+ * @property-read Components\Producer                        $producer   Producer component
+ * @property-read Components\Connection                      $connection Connection component
+ * @property-read Components\Consumer                        $consumer   Consumer component
+ * @property-read Collections\Queue|Components\Queue[]       $queues     Queues collection
+ * @property-read Collections\Exchange|Components\Exchange[] $exchanges  Exchanges collection
+ * @property-read Collections\Routing|Components\Routing[]   $routing    Routing collection
  */
 class Component extends BaseComponent
 {
@@ -38,13 +39,13 @@ class Component extends BaseComponent
      */
     protected const DEFAULTS = [
         'exchanges' => [
-            'class' => components\Exchange::class,
+            'class' => Components\Exchange::class,
         ],
         'queues' => [
-            'class' => components\Queue::class,
+            'class' => Components\Queue::class,
         ],
         'routing' => [
-            'class' => components\Routing::class,
+            'class' => Components\Routing::class,
         ],
     ];
 
@@ -56,55 +57,55 @@ class Component extends BaseComponent
     /**
      * @var int Sub-components declaration mode
      */
-    public $declaration = components\AMQPObject::DECLARATION_ENABLE;
+    public $declaration = Components\AMQPObject::DECLARATION_ENABLE;
 
     /**
-     * @var components\Message|array Message template
+     * @var Components\Message|array Message template
      */
     public $messageDefinition = [
-        'class' => components\Message::class,
+        'class' => Components\Message::class,
     ];
 
     /**
-     * @var components\Connection|array
+     * @var Components\Connection|array
      */
     protected $_connection = [
-        'class' => components\Connection::class,
+        'class' => Components\Connection::class,
     ];
 
     /**
-     * @var components\Producer|array
+     * @var Components\Producer|array
      */
     protected $_producer = [
-        'class' => components\Producer::class,
+        'class' => Components\Producer::class,
     ];
 
     /**
-     * @var components\Consumer|array
+     * @var Components\Consumer|array
      */
     protected $_consumer = [
-        'class' => components\Consumer::class,
+        'class' => Components\Consumer::class,
     ];
 
     /**
-     * @var collections\Queue|components\Queue[]
+     * @var Collections\Queue|Components\Queue[]
      */
     protected $_queues = [
-        'class' => collections\Queue::class,
+        'class' => Collections\Queue::class,
     ];
 
     /**
-     * @var collections\Exchange|components\Exchange[]
+     * @var Collections\Exchange|Components\Exchange[]
      */
     protected $_exchanges = [
-        'class' => collections\Exchange::class,
+        'class' => Collections\Exchange::class,
     ];
 
     /**
-     * @var collections\Routing|components\Routing[]
+     * @var Collections\Routing|Components\Routing[]
      */
     protected $_routing = [
-        'class' => collections\Routing::class,
+        'class' => Collections\Routing::class,
     ];
 
     /**
@@ -148,129 +149,129 @@ class Component extends BaseComponent
     /**
      * Get connection component
      *
-     * @return components\Connection
+     * @return Components\Connection
      * @throws \yii\base\InvalidConfigException
      * @throws \yii\di\NotInstantiableException
      */
-    public function getConnection(): components\Connection
+    public function getConnection(): Components\Connection
     {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return Yii::$container->get($this->getServiceName('connection'));
     }
 
     /**
-     * @throws exceptions\InvalidConfigException
+     * @throws Exceptions\InvalidConfigException
      */
     public function setConnection(): void
     {
-        throw new exceptions\InvalidConfigException('Setter not allowed for this property.');
+        throw new Exceptions\InvalidConfigException('Setter not allowed for this property.');
     }
 
     /**
      * Get producer component
      *
-     * @return components\Producer
+     * @return Components\Producer
      * @throws \yii\base\InvalidConfigException
      * @throws \yii\di\NotInstantiableException
      */
-    public function getProducer(): components\Producer
+    public function getProducer(): Components\Producer
     {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return Yii::$container->get($this->getServiceName('producer'));
     }
 
     /**
-     * @throws exceptions\InvalidConfigException
+     * @throws Exceptions\InvalidConfigException
      */
     public function setProducer(): void
     {
-        throw new exceptions\InvalidConfigException('Setter not allowed for this property.');
+        throw new Exceptions\InvalidConfigException('Setter not allowed for this property.');
     }
 
     /**
      * Get consumer component
      *
-     * @return components\Consumer
+     * @return Components\Consumer
      * @throws \yii\base\InvalidConfigException
      * @throws \yii\di\NotInstantiableException
      */
-    public function getConsumer(): components\Consumer
+    public function getConsumer(): Components\Consumer
     {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return Yii::$container->get($this->getServiceName('consumer'));
     }
 
     /**
-     * @throws exceptions\InvalidConfigException
+     * @throws Exceptions\InvalidConfigException
      */
     public function setConsumer(): void
     {
-        throw new exceptions\InvalidConfigException('Setter not allowed for this property.');
+        throw new Exceptions\InvalidConfigException('Setter not allowed for this property.');
     }
 
     /**
      * Returns queue collection
      *
-     * @return collections\Queue|components\Queue[]
+     * @return Collections\Queue|Components\Queue[]
      */
-    public function getQueues(): collections\Queue
+    public function getQueues(): Collections\Queue
     {
         return $this->_queues;
     }
 
     /**
-     * @throws exceptions\InvalidConfigException
+     * @throws Exceptions\InvalidConfigException
      */
     public function setQueues(): void
     {
-        throw new exceptions\InvalidConfigException('Setter not allowed for this property.');
+        throw new Exceptions\InvalidConfigException('Setter not allowed for this property.');
     }
 
     /**
      * Returns exchange collection
      *
-     * @return collections\Exchange|components\Exchange[]
+     * @return Collections\Exchange|Components\Exchange[]
      */
-    public function getExchanges(): collections\Exchange
+    public function getExchanges(): Collections\Exchange
     {
         return $this->_exchanges;
     }
 
     /**
-     * @throws exceptions\InvalidConfigException
+     * @throws Exceptions\InvalidConfigException
      */
     public function setExchanges(): void
     {
-        throw new exceptions\InvalidConfigException('Setter not allowed for this property.');
+        throw new Exceptions\InvalidConfigException('Setter not allowed for this property.');
     }
 
     /**
      * Returns routing collection
      *
-     * @return collections\Routing|components\Routing[]
+     * @return Collections\Routing|Components\Routing[]
      */
-    public function getRouting(): collections\Routing
+    public function getRouting(): Collections\Routing
     {
         return $this->_routing;
     }
 
     /**
-     * @throws exceptions\InvalidConfigException
+     * @throws Exceptions\InvalidConfigException
      */
     public function setRouting(): void
     {
-        throw new exceptions\InvalidConfigException('Setter not allowed for this property.');
+        throw new Exceptions\InvalidConfigException('Setter not allowed for this property.');
     }
 
     /**
      * Create new message
      *
      * @param mixed $body Message body
-     * @return components\Message
+     * @return Components\Message
      * @throws \yii\base\InvalidConfigException
      * @throws \yii\di\NotInstantiableException
      */
-    public function createMessage($body): components\Message
+    public function createMessage($body): Components\Message
     {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return Yii::$container->get($this->getServiceName('message'), [
@@ -407,7 +408,7 @@ class Component extends BaseComponent
     /**
      * Register collections
      *
-     * @throws exceptions\InvalidConfigException
+     * @throws Exceptions\InvalidConfigException
      */
     protected function registerCollections(): void
     {
@@ -436,8 +437,8 @@ class Component extends BaseComponent
                     ]);
                 }
             }
-        } catch (\yii\base\InvalidConfigException $e) {
-            throw new exceptions\InvalidConfigException($e->getMessage(), $e->getCode(), $e);
+        } catch (InvalidConfigException $e) {
+            throw new Exceptions\InvalidConfigException($e->getMessage(), $e->getCode(), $e);
         }
     }
 

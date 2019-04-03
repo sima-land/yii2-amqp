@@ -1,21 +1,22 @@
 <?php
 /** @noinspection PhpComposerExtensionStubsInspection */
 
-namespace simaland\amqp\controllers;
+namespace Simaland\Amqp\Controllers;
 
 use BadFunctionCallException;
 use InvalidArgumentException;
-use simaland\amqp\components\Consumer;
-use simaland\amqp\components\Exchange;
-use simaland\amqp\Component;
-use simaland\amqp\components\Queue;
-use simaland\amqp\components\Routing;
+use Simaland\Amqp\Components\Consumer;
+use Simaland\Amqp\Components\Exchange;
+use Simaland\Amqp\Component;
+use Simaland\Amqp\Components\Queue;
+use Simaland\Amqp\Components\Routing;
 use yii\console\Controller;
 use yii\console\ExitCode;
 use yii\di\Instance;
 use yii\helpers\Console;
 use function array_merge;
 use function array_values;
+use function ctype_digit;
 use function defined;
 use function define;
 use function function_exists;
@@ -24,6 +25,7 @@ use function is_numeric;
 use function posix_isatty;
 use function feof;
 use function fread;
+use const STDIN;
 
 /**
  * AMQP extension functionality
@@ -123,7 +125,7 @@ class AmqpController extends Controller
         /** @noinspection NotOptimalIfConditionsInspection */
         if (
             (null !== $this->memoryLimit)
-            && \ctype_digit((string)$this->memoryLimit)
+            && ctype_digit((string)$this->memoryLimit)
             && $this->memoryLimit > 0
         ) {
             $consumer->memoryLimit = $this->memoryLimit;
@@ -145,13 +147,13 @@ class AmqpController extends Controller
     {
         $producer = $this->component->producer;
         $data = '';
-        if (posix_isatty(\STDIN)) {
+        if (posix_isatty(STDIN)) {
             $this->stderr(Console::ansiFormat("Please pipe in some data in order to send it.\n", [Console::FG_RED]));
 
             return ExitCode::UNSPECIFIED_ERROR;
         }
-        while (!feof(\STDIN)) {
-            $data .= fread(\STDIN, 8192);
+        while (!feof(STDIN)) {
+            $data .= fread(STDIN, 8192);
         }
         /** @var Exchange $exchange */
         $exchange = $this->component->exchanges->filterByName($exchangeName)->current();
@@ -172,7 +174,7 @@ class AmqpController extends Controller
         $result = $this
                       ->component
                       ->routing
-                      ->filter(function (Routing $item) {
+                      ->filter(static function (Routing $item) {
                           return $item->declare();
                       })
                       ->length() > 0;
@@ -209,7 +211,7 @@ class AmqpController extends Controller
             }
         }
 
-        $this->component->queues->filterByName($queueName)->each(function (Queue $item) {
+        $this->component->queues->filterByName($queueName)->each(static function (Queue $item) {
             $item->purge();
         });
         $this->stdout(Console::ansiFormat("Queue `{$queueName}` was purged.\n", [Console::FG_GREEN]));
@@ -228,8 +230,11 @@ class AmqpController extends Controller
             if (!function_exists('pcntl_signal')) {
                 throw new BadFunctionCallException("Function 'pcntl_signal' is referenced in the php.ini 'disable_functions' and can't be called.");
             }
+            /** @noinspection PhpFullyQualifiedNameUsageInspection */
             \pcntl_signal(SIGTERM, [$consumer, 'stopDaemon']);
+            /** @noinspection PhpFullyQualifiedNameUsageInspection */
             \pcntl_signal(SIGINT, [$consumer, 'stopDaemon']);
+            /** @noinspection PhpFullyQualifiedNameUsageInspection */
             \pcntl_signal(SIGHUP, [$consumer, 'restartDaemon']);
         }
 

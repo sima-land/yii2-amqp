@@ -1,11 +1,11 @@
 <?php
 
-namespace simaland\amqp\components;
+namespace Simaland\Amqp\Components;
 
 use PhpAmqpLib\Message\AMQPMessage;
 use PhpAmqpLib\Wire\AMQPTable;
-use simaland\amqp\Component;
-use simaland\amqp\exceptions\InvalidConfigException;
+use Simaland\Amqp\Component;
+use Simaland\Amqp\Exceptions\InvalidConfigException;
 use yii\helpers\ArrayHelper;
 use function is_string;
 use function call_user_func;

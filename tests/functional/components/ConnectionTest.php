@@ -1,10 +1,10 @@
 <?php
 
-namespace simaland\amqp\tests\functional\components;
+namespace Simaland\Amqp\Tests\functional\components;
 
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
-use simaland\amqp\tests\TestCase;
+use Simaland\Amqp\Tests\TestCase;
 
 /**
  * Tests connection component
@@ -13,9 +13,9 @@ class ConnectionTest extends TestCase
 {
     /**
      * Tests AMQP connection
-     * @covers \simaland\amqp\components\Connection
-     * @covers \simaland\amqp\Component::getConnection
-     * @covers \simaland\amqp\Component::getServiceName
+     * @covers \Simaland\Amqp\Components\Connection
+     * @covers \Simaland\Amqp\Component::getConnection
+     * @covers \Simaland\Amqp\Component::getServiceName
      */
     public function testDefault(): void
     {

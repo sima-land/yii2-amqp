@@ -1,8 +1,8 @@
 <?php
 
-namespace simaland\amqp\events;
+namespace Simaland\Amqp\Events;
 
-use simaland\amqp\components\Consumer;
+use Simaland\Amqp\Components\Consumer;
 
 /**
  * AMQP consume event

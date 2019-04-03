@@ -1,8 +1,8 @@
 <?php
 
-namespace simaland\amqp\components;
+namespace Simaland\Amqp\Components;
 
-use simaland\amqp\Component;
+use Simaland\Amqp\Component;
 use yii\base\BaseObject;
 
 /**

@@ -1,9 +1,9 @@
 <?php
 
-namespace simaland\amqp\tests\functional\components;
+namespace Simaland\Amqp\Tests\functional\components;
 
-use simaland\amqp\components\Exchange;
-use simaland\amqp\tests\TestCase;
+use Simaland\Amqp\Components\Exchange;
+use Simaland\Amqp\Tests\TestCase;
 
 /**
  * Tests exchange component

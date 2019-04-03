@@ -1,8 +1,8 @@
 <?php
 
-namespace simaland\amqp\collections;
+namespace Simaland\Amqp\Collections;
 
-use simaland\amqp\Collection;
+use Simaland\Amqp\Collection;
 
 /**
  * Routing collection

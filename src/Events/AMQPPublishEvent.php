@@ -1,8 +1,8 @@
 <?php
 
-namespace simaland\amqp\events;
+namespace Simaland\Amqp\Events;
 
-use simaland\amqp\components\Producer;
+use Simaland\Amqp\Components\Producer;
 
 /**
  * AMQP publish event

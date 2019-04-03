@@ -1,10 +1,10 @@
 <?php
 
-namespace simaland\amqp\tests\unit\components;
+namespace Simaland\Amqp\Tests\unit\components;
 
-use simaland\amqp\components\Routing;
-use simaland\amqp\exceptions\InvalidConfigException;
-use simaland\amqp\tests\TestCase;
+use Simaland\Amqp\components\Routing;
+use Simaland\Amqp\exceptions\InvalidConfigException;
+use Simaland\Amqp\Tests\TestCase;
 
 /**
  * Tests routing component

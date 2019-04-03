@@ -1,10 +1,10 @@
 <?php
 
-namespace simaland\amqp\tests\unit\collections;
+namespace Simaland\Amqp\Tests\unit\collections;
 
-use simaland\amqp\components\Queue;
-use simaland\amqp\collections\Queue as QueueCollection;
-use simaland\amqp\tests\TestCase;
+use Simaland\Amqp\Components\Queue;
+use Simaland\Amqp\Collections\Queue as QueueCollection;
+use Simaland\Amqp\Tests\TestCase;
 use TypeError;
 
 /**

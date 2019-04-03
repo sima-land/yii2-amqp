@@ -1,9 +1,9 @@
 <?php
 
-namespace simaland\amqp\tests;
+namespace Simaland\Amqp\Tests;
 
-use simaland\amqp\Component;
-use simaland\amqp\tests\_mock\TestQueueCallback;
+use Simaland\Amqp\Component;
+use Simaland\Amqp\Tests\_mock\TestQueueCallback;
 
 /**
  * Base test case class.
