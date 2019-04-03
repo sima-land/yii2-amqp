@@ -1,8 +1,8 @@
 <?php
 
-namespace simaland\amqp\events;
+namespace Simaland\Amqp\Events;
 
-use simaland\amqp\components\Message;
+use Simaland\Amqp\Components\Message;
 use yii\base\Event;
 
 /**

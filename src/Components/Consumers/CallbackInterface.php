@@ -1,6 +1,6 @@
 <?php
 
-namespace simaland\amqp\components\consumer;
+namespace Simaland\Amqp\Components\Consumers;
 
 use PhpAmqpLib\Message\AMQPMessage;
 

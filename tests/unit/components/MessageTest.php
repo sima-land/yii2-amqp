@@ -1,12 +1,12 @@
 <?php
 
-namespace simaland\amqp\tests\unit\components;
+namespace Simaland\Amqp\Tests\unit\components;
 
 use PhpAmqpLib\Message\AMQPMessage;
 use PhpAmqpLib\Wire\AMQPTable;
-use simaland\amqp\components\Message;
-use simaland\amqp\exceptions\InvalidConfigException;
-use simaland\amqp\tests\TestCase;
+use Simaland\Amqp\components\Message;
+use Simaland\Amqp\exceptions\InvalidConfigException;
+use Simaland\Amqp\Tests\TestCase;
 
 /**
  * Message test class.

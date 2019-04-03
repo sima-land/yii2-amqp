@@ -1,23 +1,27 @@
 <?php
 
-namespace simaland\amqp\tests\unit;
+namespace Simaland\Amqp\Tests\unit;
 
 use PhpAmqpLib\Message\AMQPMessage;
-use simaland\amqp\collections\Exchange;
-use simaland\amqp\collections\Queue;
-use simaland\amqp\components\Connection;
-use simaland\amqp\components\Consumer;
-use simaland\amqp\components\Message;
-use simaland\amqp\components\Producer;
-use simaland\amqp\collections\Routing;
-use simaland\amqp\exceptions\InvalidConfigException;
-use simaland\amqp\tests\TestCase;
+use Simaland\Amqp\Collections\Exchange;
+use Simaland\Amqp\Collections\Queue;
+use Simaland\Amqp\Components\Connection;
+use Simaland\Amqp\Components\Consumer;
+use Simaland\Amqp\Components\Message;
+use Simaland\Amqp\Components\Producer;
+use Simaland\Amqp\Collections\Routing;
+use Simaland\Amqp\Exceptions\InvalidConfigException;
+use Simaland\Amqp\Tests\TestCase;
 
+/**
+ * @coversDefaultClass \Simaland\Amqp\Component
+ */
 class ComponentTest extends TestCase
 {
     /**
      * Setter are not allowed
      *
+     * @covers \Simaland\Amqp\Component::setProducer
      * @throws InvalidConfigException
      */
     public function testSetProducer(): void
@@ -29,6 +33,7 @@ class ComponentTest extends TestCase
     /**
      * Setter are not allowed
      *
+     * @covers \Simaland\Amqp\Component::setConsumer
      * @throws InvalidConfigException
      */
     public function testSetConsumer(): void
@@ -40,6 +45,7 @@ class ComponentTest extends TestCase
     /**
      * Setter are not allowed
      *
+     * @covers \Simaland\Amqp\Component::setExchanges
      * @throws InvalidConfigException
      */
     public function testSetExchanges(): void
@@ -51,6 +57,7 @@ class ComponentTest extends TestCase
     /**
      * Setter are not allowed
      *
+     * @covers \Simaland\Amqp\Component::setRouting
      * @throws InvalidConfigException
      */
     public function testSetRouting(): void
@@ -62,6 +69,7 @@ class ComponentTest extends TestCase
     /**
      * Setter are not allowed
      *
+     * @covers \Simaland\Amqp\Component::setConnection
      * @throws InvalidConfigException
      */
     public function testSetConnection(): void
@@ -73,6 +81,7 @@ class ComponentTest extends TestCase
     /**
      * Setter are not allowed
      *
+     * @covers \Simaland\Amqp\Component::setQueues
      * @throws InvalidConfigException
      */
     public function testSetQueues(): void
@@ -84,6 +93,8 @@ class ComponentTest extends TestCase
     /**
      * Tests message creating
      *
+     * @covers \Simaland\Amqp\Component::createMessage
+     * @covers \Simaland\Amqp\Components\Message::getAmqpMessage
      * @throws \yii\base\InvalidConfigException
      * @throws \yii\di\NotInstantiableException
      */
@@ -95,6 +106,8 @@ class ComponentTest extends TestCase
 
     /**
      * Tests connection getter
+     *
+     * @covers \Simaland\Amqp\Component::getConnection
      */
     public function testGetConnection(): void
     {
@@ -103,6 +116,8 @@ class ComponentTest extends TestCase
 
     /**
      * Tests producer getter
+     *
+     * @covers \Simaland\Amqp\Component::getProducer
      */
     public function testGetProducer(): void
     {
@@ -111,6 +126,8 @@ class ComponentTest extends TestCase
 
     /**
      * Tests queues getter
+     *
+     * @covers \Simaland\Amqp\Component::getQueues
      */
     public function testGetQueues(): void
     {
@@ -119,6 +136,8 @@ class ComponentTest extends TestCase
 
     /**
      * Tests exchanges getter
+     *
+     * @covers \Simaland\Amqp\Component::getExchanges
      */
     public function testGetExchanges(): void
     {
@@ -127,6 +146,8 @@ class ComponentTest extends TestCase
 
     /**
      * Tests routing getter
+     *
+     * @covers \Simaland\Amqp\Component::getRouting
      */
     public function testGetRouting(): void
     {
@@ -135,6 +156,8 @@ class ComponentTest extends TestCase
 
     /**
      * Tests consumer getter
+     *
+     * @covers \Simaland\Amqp\Component::getConsumer
      */
     public function testGetConsumer(): void
     {
@@ -143,6 +166,8 @@ class ComponentTest extends TestCase
 
     /**
      * Tests service name generator
+     *
+     * @covers \Simaland\Amqp\Component::getServiceName
      */
     public function testGetServiceName(): void
     {

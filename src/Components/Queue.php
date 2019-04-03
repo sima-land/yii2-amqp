@@ -1,8 +1,8 @@
 <?php
 
-namespace simaland\amqp\components;
+namespace Simaland\Amqp\Components;
 
-use simaland\amqp\exceptions\InvalidConfigException;
+use Simaland\Amqp\Exceptions\InvalidConfigException;
 
 /**
  * Queue object

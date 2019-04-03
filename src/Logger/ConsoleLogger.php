@@ -1,6 +1,6 @@
 <?php
 
-namespace simaland\amqp\logger;
+namespace Simaland\Amqp\Logger;
 
 use yii\base\BaseObject;
 

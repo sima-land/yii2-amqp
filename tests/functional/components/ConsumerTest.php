@@ -1,15 +1,15 @@
 <?php
 
-namespace simaland\amqp\tests\functional\components;
+namespace Simaland\Amqp\Tests\functional\Components;
 
 use PhpAmqpLib\Message\AMQPMessage;
-use simaland\amqp\components\Consumer;
-use simaland\amqp\components\consumer\CallbackInterface;
-use simaland\amqp\components\Exchange;
-use simaland\amqp\components\Message;
-use simaland\amqp\components\Producer;
-use simaland\amqp\tests\_mock\TestLogger;
-use simaland\amqp\tests\TestCase;
+use Simaland\Amqp\Components\Consumers;
+use Simaland\Amqp\Components\Consumers\CallbackInterface;
+use Simaland\Amqp\Components\Exchange;
+use Simaland\Amqp\Components\Message;
+use Simaland\Amqp\Components\Producer;
+use Simaland\Amqp\Tests\_mock\TestLogger;
+use Simaland\Amqp\Tests\TestCase;
 
 /**
  * Tests consumer component

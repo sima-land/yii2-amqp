@@ -13,7 +13,7 @@
   "require": {
     "php": ">=7.1",
     "ext-json": "*",
-    "php-amqplib/php-amqplib": "v2.8.2-rc3",
+    "php-amqplib/php-amqplib": "v2.9.1",
     "yiisoft/yii2": "^2.0.15"
   },
   "require-dev": {
@@ -27,12 +27,12 @@
   },
   "autoload": {
     "psr-4": {
-      "simaland\\amqp\\": "./src"
+      "Simaland\\Amqp\\": "./src"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "simaland\\amqp\\tests\\": "./tests"
+      "Simaland\\Amqp\\Tests\\": "./tests"
     }
   },
   "scripts": {

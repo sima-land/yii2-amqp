@@ -1,17 +1,18 @@
 <?php
 
-namespace simaland\amqp\components;
+namespace Simaland\Amqp\Components;
 
 use Exception;
 use InvalidArgumentException;
 use ReflectionException;
 use ReflectionClass;
+use Yii;
 use yii\helpers\Inflector;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AbstractConnection;
 use PhpAmqpLib\Connection\AMQPLazyConnection;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
-use simaland\amqp\exceptions\InvalidConfigException;
+use Simaland\Amqp\Exceptions\InvalidConfigException;
 use function stream_context_create;
 use function is_subclass_of;
 use function parse_url;
@@ -231,14 +232,14 @@ class Connection extends ConfigurationObject
             try {
                 $this->_channel->close();
             } catch (Exception $e) {
-                \Yii::error('Exception was thrown during AMQP channel closing: ' . $e->getMessage());
+                Yii::error('Exception was thrown during AMQP channel closing: ' . $e->getMessage());
             }
         }
         if ($this->amqpConnection->isConnected()) {
             try {
                 $this->amqpConnection->close();
             } catch (Exception $e) {
-                \Yii::error('Exception was thrown during AMQP connection closing: ' . $e->getMessage());
+                Yii::error('Exception was thrown during AMQP connection closing: ' . $e->getMessage());
             }
         }
 

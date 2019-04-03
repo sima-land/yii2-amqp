@@ -1,9 +1,9 @@
 <?php
 
-namespace simaland\amqp\tests\functional\components;
+namespace Simaland\Amqp\Tests\functional\components;
 
-use simaland\amqp\components\Queue;
-use simaland\amqp\tests\TestCase;
+use Simaland\Amqp\components\Queue;
+use Simaland\Amqp\Tests\TestCase;
 
 /**
  * Tests queue component

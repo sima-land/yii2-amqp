@@ -1,17 +1,17 @@
 <?php
 
-namespace simaland\amqp\components;
+namespace Simaland\Amqp\Components;
 
 use BadFunctionCallException;
-use simaland\amqp\components\consumer\CallbackInterface;
-use simaland\amqp\events\AMQPConsumeEvent;
-use simaland\amqp\exceptions\InvalidConfigException;
-use simaland\amqp\exceptions\RuntimeException;
+use Simaland\Amqp\Components\Consumers\CallbackInterface;
+use Simaland\Amqp\Events\AMQPConsumeEvent;
+use Simaland\Amqp\Exceptions\InvalidConfigException;
+use Simaland\Amqp\Exceptions\RuntimeException;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Exception\AMQPTimeoutException;
 use PhpAmqpLib\Message\AMQPMessage;
-use simaland\amqp\logger\ConsoleLogger;
-use simaland\amqp\logger\LoggerInterface;
+use Simaland\Amqp\Logger\ConsoleLogger;
+use Simaland\Amqp\Logger\LoggerInterface;
 use yii\console\ExitCode;
 use yii\di\Instance;
 use Yii;
@@ -300,6 +300,7 @@ class Consumer extends AMQPObject
                 throw new BadFunctionCallException("Function 'pcntl_signal_dispatch' is referenced in the php.ini 'disable_functions' and can't be called.");
             }
             /** @noinspection PhpComposerExtensionStubsInspection */
+            /** @noinspection PhpFullyQualifiedNameUsageInspection */
             \pcntl_signal_dispatch();
         }
         if ($this->_forceStop || ($this->_consumed === $this->_messagesLimit && $this->_messagesLimit > 0)) {
@@ -335,7 +336,6 @@ class Consumer extends AMQPObject
             'queueName' => $queueName,
             'time' => $timeStart,
         ]));
-
         try {
             // deserialize message back to initial data type
             if (
@@ -391,7 +391,6 @@ class Consumer extends AMQPObject
         }
         /** @var AMQPChannel $channel */
         $channel = $message->delivery_info['channel'];
-
         // respond to the broker with appropriate reply code
         if ($processFlag === CallbackInterface::MESSAGE_REQUEUE || false === $processFlag) {
             // Reject and requeue message to AMQP

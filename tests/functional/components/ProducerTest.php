@@ -1,14 +1,14 @@
 <?php
 
-namespace simaland\amqp\tests\functional\components;
+namespace Simaland\Amqp\Tests\functional\components;
 
-use simaland\amqp\components\Exchange;
-use simaland\amqp\components\Message;
-use simaland\amqp\components\Producer;
-use simaland\amqp\events\AMQPPublishEvent;
-use simaland\amqp\exceptions\RuntimeException;
-use simaland\amqp\tests\_mock\TestLogger;
-use simaland\amqp\tests\TestCase;
+use Simaland\Amqp\components\Exchange;
+use Simaland\Amqp\components\Message;
+use Simaland\Amqp\components\Producer;
+use Simaland\Amqp\events\AMQPPublishEvent;
+use Simaland\Amqp\exceptions\RuntimeException;
+use Simaland\Amqp\Tests\_mock\TestLogger;
+use Simaland\Amqp\Tests\TestCase;
 
 /**
  * Tests producer component

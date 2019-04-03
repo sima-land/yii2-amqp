@@ -1,10 +1,10 @@
 <?php
 
-namespace simaland\amqp\tests\unit\components;
+namespace Simaland\Amqp\Tests\unit\components;
 
-use simaland\amqp\components\Exchange;
-use simaland\amqp\exceptions\InvalidConfigException;
-use simaland\amqp\tests\TestCase;
+use Simaland\Amqp\components\Exchange;
+use Simaland\Amqp\exceptions\InvalidConfigException;
+use Simaland\Amqp\Tests\TestCase;
 
 /**
  * Tests exchange component

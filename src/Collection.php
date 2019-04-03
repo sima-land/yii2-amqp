@@ -1,6 +1,6 @@
 <?php
 
-namespace simaland\amqp;
+namespace Simaland\Amqp;
 
 use Iterator;
 use yii\base\BaseObject;
@@ -16,7 +16,7 @@ use function array_filter;
 abstract class Collection extends BaseObject implements Iterator
 {
     /**
-     * @var components\ConfigurationObject[] Collection items
+     * @var Components\ConfigurationObject[] Collection items
      */
     protected $items;
 
@@ -27,7 +27,7 @@ abstract class Collection extends BaseObject implements Iterator
 
     /**
      * @inheritdoc
-     * @param components\ConfigurationObject[] $items Initial collection items
+     * @param Components\ConfigurationObject[] $items Initial collection items
      */
     public function __construct(array $items = [], array $config = [])
     {
@@ -40,9 +40,9 @@ abstract class Collection extends BaseObject implements Iterator
     /**
      * Append item to collection
      *
-     * @param components\ConfigurationObject $item Collection item
+     * @param Components\ConfigurationObject $item Collection item
      */
-    public function append(components\ConfigurationObject $item): void
+    public function append(Components\ConfigurationObject $item): void
     {
         $this->items[] = $item;
     }
@@ -66,7 +66,7 @@ abstract class Collection extends BaseObject implements Iterator
      */
     public function filterByName(string $name): self
     {
-        return $this->filter(function (components\ConfigurationObject $item) use ($name) {
+        return $this->filter(static function (Components\ConfigurationObject $item) use ($name) {
             return $item->name === $name;
         });
     }
@@ -96,9 +96,9 @@ abstract class Collection extends BaseObject implements Iterator
 
     /**
      * @inheritdoc
-     * @return components\ConfigurationObject
+     * @return Components\ConfigurationObject
      */
-    public function current(): components\ConfigurationObject
+    public function current(): Components\ConfigurationObject
     {
         return $this->items[$this->_iteratorKey];
     }

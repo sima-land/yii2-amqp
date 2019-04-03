@@ -1,9 +1,9 @@
 <?php
 
-namespace simaland\amqp\components;
+namespace Simaland\Amqp\Components;
 
-use simaland\amqp\exceptions\InvalidConfigException;
-use simaland\amqp\exceptions\RuntimeException;
+use Simaland\Amqp\Exceptions\InvalidConfigException;
+use Simaland\Amqp\Exceptions\RuntimeException;
 use function in_array;
 use function is_array;
 
@@ -110,7 +110,7 @@ class Routing extends AMQPObject
                    ->component
                    ->queues
                    ->filterByName($this->targetQueue)
-                   ->filter(function (Queue $item) {
+                   ->filter(static function (Queue $item) {
                        return $item->declare();
                    })
                    ->length() > 0;
@@ -128,7 +128,7 @@ class Routing extends AMQPObject
                    ->component
                    ->exchanges
                    ->filterByName($exchangeName)
-                   ->filter(function (Exchange $item) {
+                   ->filter(static function (Exchange $item) {
                        return $item->declare();
                    })
                    ->length() > 0;

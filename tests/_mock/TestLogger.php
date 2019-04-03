@@ -1,8 +1,8 @@
 <?php
 
-namespace simaland\amqp\tests\_mock;
+namespace Simaland\Amqp\Tests\_mock;
 
-use simaland\amqp\logger\LoggerInterface;
+use Simaland\Amqp\Logger\LoggerInterface;
 
 /**
  * Application logger mock

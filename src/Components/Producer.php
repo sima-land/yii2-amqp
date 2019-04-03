@@ -1,12 +1,14 @@
 <?php
 
-namespace simaland\amqp\components;
+namespace Simaland\Amqp\Components;
 
-use simaland\amqp\events\AMQPPublishEvent;
-use simaland\amqp\exceptions\InvalidConfigException;
-use simaland\amqp\exceptions\RuntimeException;
-use simaland\amqp\logger\ApplicationLogger;
-use simaland\amqp\logger\LoggerInterface;
+use Simaland\Amqp\Events\AMQPPublishEvent;
+use Simaland\Amqp\Exceptions\InvalidConfigException;
+use Simaland\Amqp\Exceptions\RuntimeException;
+use Simaland\Amqp\Logger\ApplicationLogger;
+use Simaland\Amqp\Logger\LoggerInterface;
+use Yii;
+use yii\base\InvalidConfigException as YiiInvalidConfigException;
 use yii\di\Instance;
 use function is_bool;
 
@@ -58,19 +60,19 @@ class Producer extends AMQPObject
             throw new RuntimeException("Exchange `{$exchange->name}` does not declared in broker (You see this message because safe mode is ON).");
         }
         try {
-            $this->component->trigger(AMQPPublishEvent::BEFORE_PUBLISH, \Yii::createObject([
+            $this->component->trigger(AMQPPublishEvent::BEFORE_PUBLISH, Yii::createObject([
                 'class' => AMQPPublishEvent::class,
                 'message' => $message,
                 'producer' => $this,
             ]));
             $this->connection->channel->basic_publish($message->amqpMessage, $exchange->name, $routingKey);
-            $this->component->trigger(AMQPPublishEvent::AFTER_PUBLISH, \Yii::createObject([
+            $this->component->trigger(AMQPPublishEvent::AFTER_PUBLISH, Yii::createObject([
                 'class' => AMQPPublishEvent::class,
                 'message' => $message,
                 'producer' => $this,
             ]));
             $this->logger->info("Message was sent to exchange {$exchange->name}");
-        } catch (\yii\base\InvalidConfigException $e) {
+        } catch (YiiInvalidConfigException $e) {
             $this->logger->error("Couldn't initialize publish event. " . $e->getMessage());
             throw new RuntimeException("Couldn't initialize publish event.", $e->getCode(), $e);
         }

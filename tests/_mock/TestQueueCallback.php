@@ -1,9 +1,9 @@
 <?php
 
-namespace simaland\amqp\tests\_mock;
+namespace Simaland\Amqp\Tests\_mock;
 
 use PhpAmqpLib\Message\AMQPMessage;
-use simaland\amqp\components\consumer\CallbackInterface;
+use Simaland\Amqp\Components\Consumers\CallbackInterface;
 
 /**
  * Test consumer callback
