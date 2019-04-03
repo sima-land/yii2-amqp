@@ -3,7 +3,7 @@
 namespace Simaland\Amqp\Tests\functional\Components;
 
 use PhpAmqpLib\Message\AMQPMessage;
-use Simaland\Amqp\Components\Consumers;
+use Simaland\Amqp\Components\Consumer;
 use Simaland\Amqp\Components\Consumers\CallbackInterface;
 use Simaland\Amqp\Components\Exchange;
 use Simaland\Amqp\Components\Message;

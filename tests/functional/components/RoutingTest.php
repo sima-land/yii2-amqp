@@ -2,7 +2,7 @@
 
 namespace Simaland\Amqp\Tests\functional\components;
 
-use Simaland\Amqp\components\Routing;
+use Simaland\Amqp\Components\Routing;
 use Simaland\Amqp\Tests\TestCase;
 
 /**

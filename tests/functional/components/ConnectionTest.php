@@ -13,7 +13,7 @@ class ConnectionTest extends TestCase
 {
     /**
      * Tests AMQP connection
-     * @covers \Simaland\Amqp\components\Connection
+     * @covers \Simaland\Amqp\Components\Connection
      * @covers \Simaland\Amqp\Component::getConnection
      * @covers \Simaland\Amqp\Component::getServiceName
      */

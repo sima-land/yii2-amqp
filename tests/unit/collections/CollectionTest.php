@@ -2,8 +2,8 @@
 
 namespace Simaland\Amqp\Tests\unit\collections;
 
-use Simaland\Amqp\components\Queue;
-use Simaland\Amqp\collections\Queue as QueueCollection;
+use Simaland\Amqp\Components\Queue;
+use Simaland\Amqp\Collections\Queue as QueueCollection;
 use Simaland\Amqp\Tests\TestCase;
 use TypeError;
 

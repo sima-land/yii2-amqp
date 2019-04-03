@@ -2,11 +2,11 @@
 
 namespace Simaland\Amqp\Tests\functional\components;
 
-use Simaland\Amqp\components\Exchange;
-use Simaland\Amqp\components\Message;
-use Simaland\Amqp\components\Producer;
-use Simaland\Amqp\events\AMQPPublishEvent;
-use Simaland\Amqp\exceptions\RuntimeException;
+use Simaland\Amqp\Components\Exchange;
+use Simaland\Amqp\Components\Message;
+use Simaland\Amqp\Components\Producer;
+use Simaland\Amqp\Events\AMQPPublishEvent;
+use Simaland\Amqp\Exceptions\RuntimeException;
 use Simaland\Amqp\Tests\_mock\TestLogger;
 use Simaland\Amqp\Tests\TestCase;
 

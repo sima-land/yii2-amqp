@@ -2,7 +2,7 @@
 
 namespace Simaland\Amqp\Tests\functional\components;
 
-use Simaland\Amqp\components\Exchange;
+use Simaland\Amqp\Components\Exchange;
 use Simaland\Amqp\Tests\TestCase;
 
 /**
