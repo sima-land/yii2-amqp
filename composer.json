@@ -13,7 +13,7 @@
   "require": {
     "php": ">=7.1",
     "ext-json": "*",
-    "php-amqplib/php-amqplib": "v2.9.1",
+    "php-amqplib/php-amqplib": "v2.12.3",
     "yiisoft/yii2": "^2.0.15"
   },
   "require-dev": {

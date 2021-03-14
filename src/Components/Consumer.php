@@ -276,10 +276,10 @@ class Consumer extends AMQPObject
             $this->connection->channel->basic_consume(
                 $queueName,
                 $this->getConsumerTag($queueName),
-                null,
-                null,
-                null,
-                null,
+                false,
+                false,
+                false,
+                false,
                 function (AMQPMessage $message) use ($queueName, $callback) {
                     // Execute user-defined callback
                     $this->onReceive($message, $queueName, $callback);
